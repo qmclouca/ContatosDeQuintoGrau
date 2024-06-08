@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ContatosDeQuintoGrau.Views.Controls.Contatos"
+             >
+    <VerticalStackLayout>
+        <Frame Padding="10,2,10,2">
+            <HorizontalStackLayout Spacing="5">
+                <Label Text="Nome " VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry x:Name="entryName" Placeholder="Nome" VerticalOptions="Center">
+                    <Entry.Behaviors>
+                        <toolkit:TextValidationBehavior
+                            x:Name="nameValidator"
+                            Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                            MinimumLength="3"/>
+                    </Entry.Behaviors>                    
+                </Entry>
+            </HorizontalStackLayout>            
+        </Frame>
+        <Frame Padding="10,2,10,2">
+            <HorizontalStackLayout Spacing="5">
+                <Label Text="Email" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry x:Name="entryEmail" Placeholder="Email" VerticalOptions="Center">
+                    <Entry.Behaviors>
+                        <toolkit:MultiValidationBehavior
+                            x:Name="emailValidator"
+                            Flags="ValidateOnAttaching,ValidateOnValueChanged">
+                            <toolkit:TextValidationBehavior
+                                Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                MinimumLength="5"
+                                toolkit:MultiValidationBehavior.Error="Email é requerido."
+                            />
+                            <toolkit:EmailValidationBehavior
+                                Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                toolkit:MultiValidationBehavior.Error="Email inválido."
+                                />
+                        </toolkit:MultiValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+            </HorizontalStackLayout>
+        </Frame>
+        <Frame>
+            <HorizontalStackLayout>
+                <Label Text="Phone" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry x:Name="entryPhone" Placeholder="Phone" VerticalOptions="Center"></Entry>
+            </HorizontalStackLayout>
+        </Frame>
+        <Frame>
+            <HorizontalStackLayout>
+                <Label Text="Address" VerticalOptions="Center" WidthRequest="60"></Label>
+                <Entry x:Name="entryAddress" Placeholder="Address" VerticalOptions="Center"></Entry>
+            </HorizontalStackLayout>            
+        </Frame>
+        <Button x:Name="btnSave" Text="Salvar" Clicked="btnSave_Clicked"></Button>
+        <Button x:Name="btnCancel" Text="Cancelar" Clicked="btnCancel_Clicked"></Button>
+    </VerticalStackLayout>
+</ContentView>
