@@ -64,6 +64,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CoreBusiness\CoreBusiness.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\AdicionarContatosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

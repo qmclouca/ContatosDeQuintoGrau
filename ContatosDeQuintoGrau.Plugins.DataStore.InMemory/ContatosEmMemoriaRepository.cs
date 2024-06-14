@@ -1,4 +1,4 @@
-﻿using ContatosDeQuintoGrau.Models;
+﻿using ContatosDeQuintoGrau.CoreBusiness;
 
 namespace ContatosDeQuintoGrau.Plugins.DataStore.InMemory
 {    

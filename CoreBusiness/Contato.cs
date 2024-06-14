@@ -1,5 +1,5 @@
-﻿namespace ContatosDeQuintoGrau.Models
-{
+﻿namespace ContatosDeQuintoGrau.CoreBusiness 
+{ 
     public class Contato
     {
         public Contato(string name, string email, string phone, string address)
