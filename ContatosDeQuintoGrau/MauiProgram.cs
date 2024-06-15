@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using ContatosDeQuintoGrau.Plugins.DataStore.InMemory;
 using Microsoft.Extensions.Logging;
+using UseCases.PluginsInterface;
+
 
 namespace ContatosDeQuintoGrau
 {
@@ -20,6 +23,10 @@ namespace ContatosDeQuintoGrau
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+            #region injeção de dependência
+            builder.Services.AddSingleton<IContatosRepository, ContatosEmMemoriaRepository>();
+      
+            #endregion injeção de dependência
 
             return builder.Build();
         }

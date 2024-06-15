@@ -7,5 +7,6 @@ namespace UseCases.PluginsInterface
         Task AdicionarContato(Contato contato);
         Task<List<Contato>> RecuperarTodosContatos();
         Task RemoverContato(Contato contato);
+        Task AtualizarContato(Contato contato);
     }
 }

@@ -36,5 +36,18 @@ namespace ContatosDeQuintoGrau.Plugins.DataStore.InMemory
             _contatos.Remove(contato);
             return Task.CompletedTask;
         }
+
+        public Task AtualizarContato(Contato contato)
+        {
+            var contatoAtualizar = _contatos.FirstOrDefault(c => c.Id == contato.Id);
+            if (contatoAtualizar != null)
+            {
+                contatoAtualizar.Name = contato.Name;
+                contatoAtualizar.Email = contato.Email;
+                contatoAtualizar.Phone = contato.Phone;
+                contatoAtualizar.Address = contato.Address;
+            }
+            return Task.CompletedTask;
+        }
     }
 }
