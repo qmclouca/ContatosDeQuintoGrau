@@ -3,10 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ContatosDeQuintoGrau.Views.ContatosPage"
              Title="ContatosPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="50,*,50"
+          ColumnDefinitions="*"
+          Padding="5">
+        <SearchBar
+            x:Name="SearchBar"
+            Grid.Row="0"
+            Grid.Column="0"
+            Placeholder="Buscar contato"
+            TextChanged="SearchBar_TextChanged"
+            SearchButtonPressed="SearchBar_SearchButtonPressed" >
+        </SearchBar>
+        <ListView
+             Grid.Row="1"
+             Grid.Column="0"
+            x:Name="listContacts" 
+             BackgroundColor="Transparent"
+            SeparatorColor="LightBlue"
+            SeparatorVisibility="None"
+            RowHeight="60"
+            ItemSelected="listContacts_ItemSelected"
+            ItemTapped="listContacts_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell
+                        Text="{Binding Path=Name}"
+                        Detail="{Binding Path=Email}">
+                        <TextCell.ContextActions>
+                            <MenuItem Text="Apagar" IsDestructive="True" Clicked="Delete_Clicked" CommandParameter="{Binding .}"></MenuItem>
+                        </TextCell.ContextActions>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button
+             Grid.Row="2"
+             Grid.Column="0"
+            Text="Adicionar Contato"
+            Clicked="btnAdd_Clicked">
+        </Button>
+    </Grid>
 </ContentPage>

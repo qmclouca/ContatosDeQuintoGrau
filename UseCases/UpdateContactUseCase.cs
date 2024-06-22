@@ -4,17 +4,18 @@ using UseCases.PluginsInterface;
 
 namespace UseCases
 {
-    public class DeleteContactUseCase: IDeleteContactUseCase
+    public class UpdateContactUseCase: IUpdateContactUseCase 
     {
         private readonly IContatosRepository _contatosRepository;
 
-        public DeleteContactUseCase(IContatosRepository contatosRepository)
+        public UpdateContactUseCase(IContatosRepository contatosRepository)
         {
             _contatosRepository = contatosRepository;
         }
+
         public async Task ExecuteAsync(Contato contato)
         {
-            await _contatosRepository.RemoverContato(contato);
+            await _contatosRepository.AtualizarContato(contato);
         }
     }
 }

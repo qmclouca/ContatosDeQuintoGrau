@@ -1,8 +1,9 @@
 ﻿using ContatosDeQuintoGrau.CoreBusiness;
+using UseCases.PluginsInterface;
 
 namespace ContatosDeQuintoGrau.Plugins.DataStore.InMemory
 {    
-    public class ContatosEmMemoriaRepository
+    public class ContatosEmMemoriaRepository : IContatosRepository
     {
         public static List<Contato> _contatos;
 
@@ -34,6 +35,50 @@ namespace ContatosDeQuintoGrau.Plugins.DataStore.InMemory
         public Task RemoverContato(Contato contato)
         {
             _contatos.Remove(contato);
+            return Task.CompletedTask;
+        }
+
+        public Task AtualizarContato(Contato contato)
+        {
+            var contatoAtualizar = _contatos.FirstOrDefault(c => c.Id == contato.Id);
+            if (contatoAtualizar != null)
+            {
+                contatoAtualizar.Name = contato.Name;
+                contatoAtualizar.Email = contato.Email;
+                contatoAtualizar.Phone = contato.Phone;
+                contatoAtualizar.Address = contato.Address;
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task<Contato> GetContactByIdAsync(Guid contactId)
+        {
+            var contact = _contatos.FirstOrDefault(c => c.Id.Equals(contactId));
+            return contact != null ? Task.FromResult(contact) : Task.FromResult(new Contato());
+        }
+
+        public Task<List<Contato>> SearchContacts(string filterText)
+        {
+            if (string.IsNullOrEmpty(filterText))
+                return Task.FromResult(_contatos);
+
+            IEnumerable<Contato> contatosByName = _contatos.Where(c => !string.IsNullOrWhiteSpace(c.Name) && c.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase));
+            IEnumerable<Contato> contatosByEmail = _contatos.Where(c => !string.IsNullOrWhiteSpace(c.Email) && c.Email.Contains(filterText, StringComparison.OrdinalIgnoreCase));
+            IEnumerable<Contato> contatosByPhone = _contatos.Where(c => !string.IsNullOrWhiteSpace(c.Phone) && c.Phone.Contains(filterText, StringComparison.OrdinalIgnoreCase));
+            IEnumerable<Contato> contatosByAddress = _contatos.Where(c => !string.IsNullOrWhiteSpace(c.Address) && c.Address.Contains(filterText, StringComparison.OrdinalIgnoreCase));
+            return Task.FromResult(contatosByName.Union(contatosByEmail).Union(contatosByPhone).Union(contatosByAddress).ToList());
+        }
+
+        public Task UpdateContact(Contato contato)
+        {
+            var contatoAtualizar = _contatos.FirstOrDefault(c => c.Id == contato.Id);
+            if (contatoAtualizar != null)
+            {
+                contatoAtualizar.Name = contato.Name;
+                contatoAtualizar.Email = contato.Email;
+                contatoAtualizar.Phone = contato.Phone;
+                contatoAtualizar.Address = contato.Address;
+            }
             return Task.CompletedTask;
         }
     }

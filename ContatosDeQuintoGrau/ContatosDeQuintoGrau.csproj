@@ -64,7 +64,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ContatosDeQuintoGrau.Plugins.DataStore.InMemory\ContatosDeQuintoGrau.Plugins.DataStore.InMemory.csproj" />
 	  <ProjectReference Include="..\CoreBusiness\CoreBusiness.csproj" />
+	  <ProjectReference Include="..\UseCases\UseCases.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
