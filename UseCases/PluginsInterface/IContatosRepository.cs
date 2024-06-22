@@ -8,5 +8,6 @@ namespace UseCases.PluginsInterface
         Task<List<Contato>> RecuperarTodosContatos();
         Task RemoverContato(Contato contato);
         Task AtualizarContato(Contato contato);
+        Task<Contato> GetContactByIdAsync(Guid contactId);
     }
 }
