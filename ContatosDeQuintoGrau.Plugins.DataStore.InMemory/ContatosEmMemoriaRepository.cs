@@ -1,6 +1,6 @@
 ﻿using ContatosDeQuintoGrau.CoreBusiness;
 using UseCases.PluginsInterface;
-
+using Contato = ContatosDeQuintoGrau.CoreBusiness.Contato;
 namespace ContatosDeQuintoGrau.Plugins.DataStore.InMemory
 {    
     public class ContatosEmMemoriaRepository : IContatosRepository
@@ -54,7 +54,7 @@ namespace ContatosDeQuintoGrau.Plugins.DataStore.InMemory
         public Task<Contato> GetContactByIdAsync(Guid contactId)
         {
             var contact = _contatos.FirstOrDefault(c => c.Id.Equals(contactId));
-            return contact != null ? Task.FromResult(contact) : Task.FromResult(new Contato());
+            return  Task.FromResult(contact) ;
         }
 
         public Task<List<Contato>> SearchContacts(string filterText)

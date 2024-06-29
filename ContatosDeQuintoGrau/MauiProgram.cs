@@ -29,6 +29,7 @@ namespace ContatosDeQuintoGrau
             #region injeção de dependência
             builder.Services.AddSingleton<IContatosRepository, ContatosEmMemoriaRepository>();
             builder.Services.AddSingleton<IViewContactUseCase, ViewContactUseCase>();
+            builder.Services.AddSingleton<IViewContactsUseCase, ViewContactsUseCase>();
             builder.Services.AddSingleton<IAddContactUseCase, AddContactUseCase>();
             builder.Services.AddSingleton<IUpdateContactUseCase, UpdateContactUseCase>();
             builder.Services.AddSingleton<IDeleteContactUseCase, DeleteContactUseCase>();
