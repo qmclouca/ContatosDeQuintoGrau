@@ -9,5 +9,6 @@ namespace UseCases.PluginsInterface
         Task RemoverContato(Contato contato);
         Task AtualizarContato(Contato contato);
         Task<Contato> GetContactByIdAsync(Guid contactId);
+        Task<List<Contato>> SearchContacts(string filterText);
     }
 }

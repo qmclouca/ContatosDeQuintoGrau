@@ -7,14 +7,18 @@ namespace ContatosDeQuintoGrau.Views;
 
 public partial class ContatosPage : ContentPage
 {
-    private readonly IViewContactUseCase _viewContactsUseCase;
+    private readonly IViewContactUseCase _viewContactUseCase;
     private readonly IDeleteContactUseCase _deleteContactUseCase;
+    private readonly IViewContactsUseCase _viewContactsUseCase;
 
-    public ContatosPage(IViewContactUseCase viewContactsUseCase, IDeleteContactUseCase deleteContactUseCase)
+    public ContatosPage(IViewContactUseCase viewContactUseCase, 
+        IDeleteContactUseCase deleteContactUseCase,
+        IViewContactsUseCase viewContactsUseCase)
     {
         InitializeComponent();
-        this._viewContactsUseCase = viewContactsUseCase;
+        this._viewContactUseCase = viewContactUseCase;
         this._deleteContactUseCase = deleteContactUseCase;
+        this._viewContactsUseCase = viewContactsUseCase;
     }
 
     protected override void OnAppearing()
@@ -29,7 +33,7 @@ public partial class ContatosPage : ContentPage
     {
         if (listContacts.SelectedItem != null)
         {
-            await Shell.Current.GoToAsync($"{nameof(EditarContatosPage)}?Id={((Contact)listContacts.SelectedItem).Id}");
+            await Shell.Current.GoToAsync($"{nameof(EditarContatosPage)}?Id={((Contato)listContacts.SelectedItem).Id}");
         }
     }
 
@@ -46,25 +50,25 @@ public partial class ContatosPage : ContentPage
     private async void Delete_Clicked(object sender, EventArgs e)
     {
         var menuItem = sender as MenuItem;
-        var contact = menuItem!.CommandParameter as Contact;
-        //await _deleteContactUseCase.ExecuteAsync(contact!);
+        var contact = menuItem!.CommandParameter as Contato;
+        await _deleteContactUseCase.ExecuteAsync(contact!);
         LoadContacts();
     }
 
     private async void LoadContacts()
     {
-        //var contacts = new ObservableCollection<Contato>(await _viewContactsUseCase.ExecuteAsync(Guid.Empty));
-       // listContacts.ItemsSource = contacts;
+        var contacts = new ObservableCollection<Contato>(await _viewContactsUseCase.ExecuteAsync(string.Empty));
+        listContacts.ItemsSource = contacts;
     }
 
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-       // var contacts = new ObservableCollection<Contact>(await _viewContactsUseCase.ExecuteAsync(((SearchBar)sender!).Text));
-        //listContacts.ItemsSource = contacts;
+        var contacts = new ObservableCollection<Contato>(await _viewContactsUseCase.ExecuteAsync(((SearchBar)sender!).Text));
+        listContacts.ItemsSource = contacts;
     }
     private async void SearchBar_SearchButtonPressed(object sender, EventArgs e)
     {
-        //var contacts = new ObservableCollection<Contact>(await _viewContactsUseCase.ExecuteAsync(((SearchBar)sender!).Text));
-        //listContacts.ItemsSource = contacts;
+        var contacts = new ObservableCollection<Contato>(await _viewContactsUseCase.ExecuteAsync(((SearchBar)sender!).Text));
+        listContacts.ItemsSource = contacts;
     }
 }

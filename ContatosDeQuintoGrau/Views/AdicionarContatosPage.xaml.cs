@@ -12,7 +12,12 @@ public partial class AdicionarContatosPage : ContentPage
 
     private async void contatoControle_OnSave(object sender, EventArgs e)
     {
-        await _addContactUseCase.ExecuteAsync(new Contato(contatosControle.Name, contatosControle.Email, contatosControle.Phone, contatosControle.Address));
+        try { 
+            await _addContactUseCase.ExecuteAsync(new Contato(contatosControle.Name, contatosControle.Email, contatosControle.Phone, contatosControle.Address)); }
+        catch (Exception ex) 
+        {
+            DisplayAlert("Error ao adicionar contato", ex.ToString(), "Ok");
+        }
         await Shell.Current.GoToAsync($"//{nameof(ContatosPage)}");
     }
 
