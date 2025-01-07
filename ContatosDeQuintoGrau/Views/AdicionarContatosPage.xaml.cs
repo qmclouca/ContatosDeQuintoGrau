@@ -5,15 +5,18 @@ namespace ContatosDeQuintoGrau.Views;
 public partial class AdicionarContatosPage : ContentPage
 {
     private readonly IAddContactUseCase _addContactUseCase;
-	public AdicionarContatosPage()
+
+	public AdicionarContatosPage(IAddContactUseCase addContactUseCase)
 	{
 		InitializeComponent();
-	}
+        _addContactUseCase = addContactUseCase;
+    }
 
     private async void contatoControle_OnSave(object sender, EventArgs e)
     {
         try { 
-            await _addContactUseCase.ExecuteAsync(new Contato(contatosControle.Name, contatosControle.Email, contatosControle.Phone, contatosControle.Address)); }
+            Contato contatoParaSalvar = new Contato(contatosControle.Name, contatosControle.Email, contatosControle.Phone, contatosControle.Address);
+            await _addContactUseCase.ExecuteAsync(contatoParaSalvar); }
         catch (Exception ex) 
         {
             DisplayAlert("Error ao adicionar contato", ex.ToString(), "Ok");
